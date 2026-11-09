@@ -5,4 +5,8 @@ node_modules/
 .next/
 .DS_Store
 *.part
+*.tsbuildinfo
+out/
+public/data/
+.vercel/
 data/snapshots/*.jsonl.tmp
