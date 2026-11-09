@@ -1,0 +1,2002 @@
+{
+ "date": "2026-11-09",
+ "generated_at": "2026-11-09T15:24:35Z",
+ "totals": {
+  "servers": 10503,
+  "reachable": 5062,
+  "scored": 5062,
+  "inspectability": 0.482,
+  "tools": 66143,
+  "params": 225369,
+  "params_documented": 174506,
+  "doc_rate": 0.7743,
+  "risk_declared_rate": 0.8204,
+  "output_schema_rate": 0.2634
+ },
+ "outcomes": {
+  "auth_required": 3953,
+  "ok": 5062,
+  "dns_error": 322,
+  "transport_error": 324,
+  "protocol_error": 243,
+  "invalid_body": 82,
+  "tls_error": 133,
+  "timeout": 42,
+  "not_found": 339,
+  "probe_crash": 3
+ },
+ "conformance_modes": {
+  "auth_on_call": 462,
+  "error_object": 2340,
+  "result_iserror": 1636,
+  "http_404": 12,
+  "http_400": 74,
+  "silent_success": 25,
+  "http_429": 59,
+  "http_402": 5,
+  "http_500": 2,
+  "http_501": 1,
+  "http_503": 1,
+  "None": 445
+ },
+ "context_tax": {
+  "median": 2003,
+  "p90": 17028,
+  "p99": 71649,
+  "max": 408500,
+  "median_usd": {
+   "GPT-5.4": 0.0025,
+   "Claude Fable 5.1": 0.006,
+   "Gemini 3.5 Pro": 0.0025
+  },
+  "prices": [
+   {
+    "model": "GPT-5.4",
+    "input_per_m": 1.25,
+    "as_of": "2026-11-01"
+   },
+   {
+    "model": "Claude Fable 5.1",
+    "input_per_m": 3.0,
+    "as_of": "2026-11-01"
+   },
+   {
+    "model": "Gemini 3.5 Pro",
+    "input_per_m": 1.25,
+    "as_of": "2026-11-01"
+   }
+  ],
+  "histogram": [
+   {
+    "bucket": "0-1k",
+    "count": 1326
+   },
+   {
+    "bucket": "1k-3k",
+    "count": 1489
+   },
+   {
+    "bucket": "3k-10k",
+    "count": 1091
+   },
+   {
+    "bucket": "10k-30k",
+    "count": 546
+   },
+   {
+    "bucket": "30k+",
+    "count": 165
+   }
+  ]
+ },
+ "grades": {
+  "A": 2011,
+  "F": 525,
+  "D": 732,
+  "C": 579,
+  "B": 1215
+ },
+ "score_median": 89.5,
+ "leaderboard": [
+  {
+   "server": "com.fillstub/options-trading-journal",
+   "title": "FillStub - options trading journal",
+   "url": "https://mcp.fillstub.com/mcp",
+   "description": "Options journal from broker exports: contract lifecycle, Section 1256 vs 8949 tax split, intervals",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 0,
+   "params": 0,
+   "est_tokens": 0,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0,
+    "Claude Fable 5.1": 0.0,
+    "Gemini 3.5 Pro": 0.0
+   },
+   "doc_rate": null,
+   "conformance": "error_object",
+   "latency_ms": 237
+  },
+  {
+   "server": "com.getonideal/ideal",
+   "title": "Ideal",
+   "url": "https://mcp.getonideal.com/mcp",
+   "description": "Run a creator's Ideal: publish video, music, podcasts, posts; shop; own AI; pricing.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 0,
+   "est_tokens": 138,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0004,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": null,
+   "conformance": "auth_on_call",
+   "latency_ms": 329
+  },
+  {
+   "server": "com.dividendsolo.lab/pageroast",
+   "title": "PageRoast",
+   "url": "https://lab.dividendsolo.com/mcp",
+   "description": "AI landing page roast: score /100, 5-second test, top 3 conversion problems quoted from any URL.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 159,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0005,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 307
+  },
+  {
+   "server": "com.edgethirteen.www/numbercheck",
+   "title": null,
+   "url": "https://www.edgethirteen.com/api/mcp/numbercheck",
+   "description": "Checks $TICKER numeric claims in financial writing against SEC EDGAR XBRL data from the latest 10-K.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 161,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0005,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 214
+  },
+  {
+   "server": "com.askscores/sports-stats",
+   "title": "AskScores",
+   "url": "https://www.askscores.com/mcp",
+   "description": "Sports stats questions in plain English: NBA, WNBA, NFL, MLB, NHL and college football.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 173,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0005,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 265
+  },
+  {
+   "server": "br.com.cnpjcompleto/cnpj",
+   "title": "CNPJ Completo",
+   "url": "https://cnpjcompleto.com.br/mcp",
+   "description": "Brazilian company data by CNPJ from Receita Federal: partners, CNAE, address, debts and sanctions.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 185,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 504
+  },
+  {
+   "server": "co.youraitools/stackdetect",
+   "title": "StackDetect",
+   "url": "https://api.youraitools.co/stackdetect/mcp",
+   "description": "Detect a website's tech stack (frameworks, hosting, CDN, analytics). By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 186,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 171
+  },
+  {
+   "server": "com.autosecurelogin/policy-lens",
+   "title": "ASL Policy Lens",
+   "url": "https://mcp.autosecurelogin.com/policy/mcp",
+   "description": "Answers on Colorado corrections, jail and state agency policy, quoting the public documents used.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 187,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 340
+  },
+  {
+   "server": "com.edgethirteen.www/altman-z-score-calculator",
+   "title": null,
+   "url": "https://www.edgethirteen.com/api/mcp/altman-z-score-calculator",
+   "description": "Altman Z-Score bankruptcy-risk screen for a US-listed ticker, inputs looked up automatically.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 190,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 215
+  },
+  {
+   "server": "app.payperwork/payperwork",
+   "title": "PayperWork",
+   "url": "https://payperwork.app/mcp",
+   "description": "Index of PayperWork's pay-per-call services for agents over x402: lists and describes them. Free.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 1,
+   "est_tokens": 197,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0002,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0002
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 147
+  },
+  {
+   "server": "com.allthepossibles/pulse",
+   "title": "Pulse",
+   "url": "https://pulse.allthepossibles.com/mcp",
+   "description": "Core Web Vitals (LCP, INP, CLS) per URL from the Chrome UX Report, with daily checks on Pro.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 201,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 268
+  },
+  {
+   "server": "co.youraitools/tokenverdict",
+   "title": "TokenVerdict",
+   "url": "https://api.youraitools.co/tokenverdict/mcp",
+   "description": "Base token safety check: simulated buy/transfer/sell, owner powers, liquidity. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 206,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 121
+  },
+  {
+   "server": "co.com.elyraon/workflow-rescue",
+   "title": "ELYREON n8n Workflow Rescue",
+   "url": "https://elyraon.com.co/agents/mcp",
+   "description": "Static n8n workflow validator: workflow errors and repair suggestions. No execution.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 211,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "auth_on_call",
+   "latency_ms": 243
+  },
+  {
+   "server": "app.carrierscan/ai-text-checker",
+   "title": "AI Text Checker by carrierscan",
+   "url": "https://carrierscan.app/mcp",
+   "description": "Check if AI wrote a text: English, Ukrainian, Kazakh, Uzbek, Estonian, Georgian, Lithuanian.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 214,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 265
+  },
+  {
+   "server": "co.youraitools/solverdict",
+   "title": "SolVerdict",
+   "url": "https://api.youraitools.co/solverdict/mcp",
+   "description": "Safety check for Solana SPL/Token-2022 mints: SAFE/CAUTION/DANGER + reasons. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 215,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0006,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 135
+  },
+  {
+   "server": "app.vercel.polyglot-ai-board/board",
+   "title": "Polyglot AI Board",
+   "url": "https://polyglot-ai-board.vercel.app/api/mcp",
+   "description": "Read-only: which LLM is best in 7 languages (zh, ko, nb, de, nl, es, pt), from public benchmarks.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 1,
+   "est_tokens": 221,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 280
+  },
+  {
+   "server": "ai.wondel/mcp",
+   "title": "Wondel.ai MCP servers",
+   "url": "https://mcp.wondel.ai/mcp",
+   "description": "26 authless MCP servers: flights, stays, maps, shopping, web search, Polish web (Allegro, OLX, NBP).",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 224,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 126
+  },
+  {
+   "server": "co.youraitools/agentgate",
+   "title": "AgentGate",
+   "url": "https://api.youraitools.co/agentgate/mcp",
+   "description": "Check an AI agent is registered, Active and Verified in Concordium's registry. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 225,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 207
+  },
+  {
+   "server": "co.youraitools/agentready",
+   "title": "AgentReady",
+   "url": "https://api.youraitools.co/agentready/mcp",
+   "description": "Is your website ready for AI agents? 0-100 score, A-F grade and fixes. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 229,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 154
+  },
+  {
+   "server": "com.ip99/ip99",
+   "title": "IP99 IP risk & geolocation",
+   "url": "https://ip99.com/mcp",
+   "description": "Free IP risk and geolocation lookup: proxy, VPN and datacenter detection. No API key.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 232,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 834
+  },
+  {
+   "server": "com.edgethirteen.www/graham-number-calculator",
+   "title": null,
+   "url": "https://www.edgethirteen.com/api/mcp/graham-number-calculator",
+   "description": "Benjamin Graham's fair-value ceiling and margin of safety for a US-listed ticker.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 4,
+   "est_tokens": 236,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 275
+  },
+  {
+   "server": "co.youraitools/perpradar",
+   "title": "PerpRadar",
+   "url": "https://api.youraitools.co/perpradar/mcp",
+   "description": "Read-only perp funding, OI and positioning across 4 onchain venues. Not financial advice.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 239,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 144
+  },
+  {
+   "server": "co.youraitools/leakguard",
+   "title": "LeakGuard",
+   "url": "https://api.youraitools.co/leakguard/mcp",
+   "description": "Find and redact leaked secrets, wallet keys and PII before an AI agent sends text.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 242,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0007,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 198
+  },
+  {
+   "server": "com.discoverlaunches/launches",
+   "title": "DiscoverLaunches",
+   "url": "https://discoverlaunches.com/mcp",
+   "description": "Search new product launches from indie makers and read their details. Read-only, no auth.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 2,
+   "est_tokens": 250,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 1026
+  },
+  {
+   "server": "co.youraitools/tasignal",
+   "title": "TASignal",
+   "url": "https://api.youraitools.co/tasignal/mcp",
+   "description": "Read-only crypto indicators, risk sizing and rule backtests. Not financial advice.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 253,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 182
+  },
+  {
+   "server": "co.youraitools/credits",
+   "title": "YourAITools Credits",
+   "url": "https://api.youraitools.co/credits/mcp",
+   "description": "Prepaid credits for every YourAITools agent API: quote a call and check a credits key balance. Free.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 257,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 202
+  },
+  {
+   "server": "com.agentstandings/check",
+   "title": "Agent Standings check",
+   "url": "https://agentstandings.com/mcp",
+   "description": "Live status and 30-day reliability of public MCP servers, from independent hourly probes.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 260,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 148
+  },
+  {
+   "server": "com.feelswebman/geo-bot",
+   "title": "GEO-bot",
+   "url": "https://feelswebman.com/projects/geo-bot/mcp.php",
+   "description": "Free check whether a website is technically open to AI assistants (AI crawlers, llms.txt, JSON-LD).",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 260,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 673
+  },
+  {
+   "server": "com.clawhard/tokendiet",
+   "title": "Token Diet",
+   "url": "https://tokendiet.clawhard.com/mcp",
+   "description": "Count tokens exactly for any text and see if it fits a 128K, 200K or 1M context window.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 261,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 368
+  },
+  {
+   "server": "co.youraitools/x402fix",
+   "title": "x402fix",
+   "url": "https://api.youraitools.co/x402fix/mcp",
+   "description": "x402 endpoint doctor: grades a paid route A-F unpaid, with paste-ready fixes. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 262,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 178
+  },
+  {
+   "server": "com.360tft/coaching-brain",
+   "title": "Kevin's Coaching Brain",
+   "url": "https://brain.360tft.com/api/brain/mcp",
+   "description": "Coaching answers from Kevin Middleton's own writing, with the source link for each answer.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 262,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 858
+  },
+  {
+   "server": "com.brokerchooser/broker-safety",
+   "title": null,
+   "url": "https://mcp.brokerchooser.com/servers/mcp",
+   "description": "MCP server offering regulator-sourced legitimacy checks on investment entities by name or URL.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 264,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "http_400",
+   "latency_ms": 285
+  },
+  {
+   "server": "app.agendaforge/docs",
+   "title": null,
+   "url": "https://mcp.agendaforge.app/mcp/docs",
+   "description": "Search and fetch AgendaForge public documentation and marketing content. No authentication needed.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 269,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 211
+  },
+  {
+   "server": "com.clawhard/fluff",
+   "title": "Fluff",
+   "url": "https://fluff.clawhard.com/mcp",
+   "description": "Find filler and buzzwords in text and score how much of it says nothing.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 272,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 155
+  },
+  {
+   "server": "com.ivisa.www/mcp",
+   "title": null,
+   "url": "https://www.ivisa.com/mcp",
+   "description": "Check visa requirements and travel documents for international travel destinations.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 3,
+   "est_tokens": 279,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0003,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0003
+   },
+   "doc_rate": 1.0,
+   "conformance": "http_400",
+   "latency_ms": 308
+  },
+  {
+   "server": "co.youraitools/smartperps",
+   "title": "SmartPerps",
+   "url": "https://api.youraitools.co/smartperps/mcp",
+   "description": "Read-only Hyperliquid smart-money positioning: top-trader bias, flows. Not financial advice.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 282,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0008,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 167
+  },
+  {
+   "server": "co.botdoor/botdoor",
+   "title": "Botdoor",
+   "url": "https://botdoor.co/api/mcp",
+   "description": "Let AI agents post to social media with human approval: schedule, first comments, threads.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 4,
+   "est_tokens": 287,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 420
+  },
+  {
+   "server": "com.amazonaws.us-east-1.execute-api.4fucgqu5if/agent-platform-rules",
+   "title": "Agent Platform Rules",
+   "url": "https://4fucgqu5if.execute-api.us-east-1.amazonaws.com/mcp",
+   "description": "Cited, dated answers: may an AI agent post, sign up or automate on Reddit, HN, Bluesky, GitHub, X?",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 1,
+   "est_tokens": 289,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 318
+  },
+  {
+   "server": "com.huntautogroup.texas/docs",
+   "title": "Hunt Auto Group Texas: guides",
+   "url": "https://texas.huntautogroup.com/api/mcp/docs/",
+   "description": "Search and read Texas used-car buying guides (title, tax, inspection, reviews) as Markdown.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 292,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 237
+  },
+  {
+   "server": "com.byimprint/public-guidance",
+   "title": "byImprint Public Guidance",
+   "url": "https://byimprint.com/.well-known/mcp",
+   "description": "Read-only byImprint service guidance and canonical public site routes.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 0,
+   "est_tokens": 294,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": null,
+   "conformance": "error_object",
+   "latency_ms": 490
+  },
+  {
+   "server": "com.anthonyhunts/shaart-agency-docs",
+   "title": "Anthony Hunt \u00b7 SHAART Agency docs",
+   "url": "https://www.anthonyhunts.com/api/mcp/docs",
+   "description": "Search anthonyhunts.com and read any page as Markdown: GoHighLevel and AI automation guides",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 298,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 362
+  },
+  {
+   "server": "ai.boltclaw/docs",
+   "title": "Bolt Claw documentation",
+   "url": "https://boltclaw.ai/docs/mcp-server",
+   "description": "Search and read the Bolt Claw API documentation. Read-only, and no key needed.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 299,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 468
+  },
+  {
+   "server": "co.youraitools/domaincheck",
+   "title": "DomainCheck",
+   "url": "https://api.youraitools.co/domaincheck/mcp",
+   "description": "Domain and email trust checks for agents: DNS, SPF/DMARC, disposable email. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 304,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 203
+  },
+  {
+   "server": "com.clawhard/slopscore",
+   "title": "Slop Score",
+   "url": "https://slopscore.clawhard.com/mcp",
+   "description": "Score a public website 0 to 100 for the design habits that make it look AI-made.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 304,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 173
+  },
+  {
+   "server": "com.clawhard/tells",
+   "title": "Tells",
+   "url": "https://tells.clawhard.com/mcp",
+   "description": "Score text 0 to 100 for chatbot habits like filler, em dashes and buzzwords, each one marked.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 304,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 156
+  },
+  {
+   "server": "com.entityreach/public-resources",
+   "title": "EntityReach Corporate Group Intelligence",
+   "url": "https://entityreach.com/api/public-mcp",
+   "description": "Enterprise account-research resources, product information and reproducible corporate-group samples.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 0,
+   "est_tokens": 307,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": null,
+   "conformance": "error_object",
+   "latency_ms": 184
+  },
+  {
+   "server": "com.givore/givore",
+   "title": "Givore",
+   "url": "https://api.givore.com/mcp/public",
+   "description": "Search live free giveaway listings in Spanish cities, one city per call. Read-only, no account.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 4,
+   "est_tokens": 314,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "http_400",
+   "latency_ms": 233
+  },
+  {
+   "server": "co.youraitools/counterpartycheck",
+   "title": "CounterpartyCheck",
+   "url": "https://api.youraitools.co/counterpartycheck/mcp",
+   "description": "Pre-payment check for EVM/Solana addresses: ok/caution/block with reasons. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 3,
+   "est_tokens": 316,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0009,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 170
+  },
+  {
+   "server": "com.clawhard/lingo",
+   "title": "Lingo",
+   "url": "https://lingo.clawhard.com/mcp",
+   "description": "Turn vague design requests like \"make it pop\" into precise design terms and a brief.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 317,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 117
+  },
+  {
+   "server": "com.edgethirteen.www/dcf-calculator",
+   "title": null,
+   "url": "https://www.edgethirteen.com/api/mcp/dcf-calculator",
+   "description": "Discounted-cash-flow intrinsic value per share from growth/discount/terminal assumptions.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 7,
+   "est_tokens": 317,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 215
+  },
+  {
+   "server": "app.vercel.axiom-risk-mcp/solana-token-risk",
+   "title": "Axiom Solana Token Risk",
+   "url": "https://axiom-risk-mcp.vercel.app/mcp",
+   "description": "Solana SPL token risk checks: free preview tool plus links to paid x402 (USDC) full reports.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 3,
+   "est_tokens": 323,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 346
+  },
+  {
+   "server": "app.tuper/agent-signups",
+   "title": "Can my AI agent sign up?",
+   "url": "https://mcp-signups.tuper.app/mcp",
+   "description": "Can an AI agent sign up to X? 58 services tested: Cloudflare, captcha, phone or terms gates.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 324,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 830
+  },
+  {
+   "server": "co.newcollab/ugc-creator-search",
+   "title": "Newcollab UGC Creator Search",
+   "url": "https://api.newcollab.co/api/v1/integrations/claude/mcp",
+   "description": "Find vetted UGC creators by niche, platform and country for gifting, PR boxes and TikTok ads.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 4,
+   "est_tokens": 332,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 362
+  },
+  {
+   "server": "com.cymetica/tuatara-embed-stocks",
+   "title": "Tuatara Embed Stocks",
+   "url": "https://cymetica.com/mcp/v1/stock-vectors",
+   "description": "Stock-symbol vectors: which listed symbols an event, theme or headline moves, ranked in one call.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 3,
+   "est_tokens": 332,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 1106
+  },
+  {
+   "server": "ai.gtinfetch/gtinfetch",
+   "title": "gtinfetch \u2013 Agentic Commerce",
+   "url": "https://gtinfetch.ai/mcp",
+   "description": "gtinfetch \u2014 the GTIN resolver for AI agents. Any barcode, one call. 84M GTINs. x402 at the door.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 336,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 350
+  },
+  {
+   "server": "co.youraitools/toolpick",
+   "title": "ToolPick",
+   "url": "https://api.youraitools.co/toolpick/mcp",
+   "description": "Find and live-check the paid x402 API for an agent task, ranked by real 30-day payers and price.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 3,
+   "est_tokens": 346,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 185
+  },
+  {
+   "server": "au.com.sysconaustralia/click-to-frame",
+   "title": "Click-to-Frame",
+   "url": "https://tools.sysconaustralia.com.au/mcp",
+   "description": "Put any picture inside a painting, screen or window in a photo, or cut objects out. Runs on-device.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 350,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.001,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 419
+  },
+  {
+   "server": "club.lity/lity",
+   "title": null,
+   "url": "https://mcp.lity.club/mcp",
+   "description": "AI legal copilot for foreigners in Spain: immigration and housing rental, cited to Spanish law.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 6,
+   "est_tokens": 354,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 768
+  },
+  {
+   "server": "com.grain64.clearbar/verdicts",
+   "title": "Clearbar model verdicts",
+   "url": "https://clearbar.grain64.com/mcp",
+   "description": "Cheapest LLM that passes each task: cost per successful task and pass rate on public datasets.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 358,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 1137
+  },
+  {
+   "server": "com.auto-units/imagekind",
+   "title": "Image Kind",
+   "url": "https://imagekind.auto-units.com/mcp",
+   "description": "Find artist-credited art prints and canvas, made to order by Image Kind\u2019s studio.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 359,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0004,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0004
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 236
+  },
+  {
+   "server": "com.birthdaypaper/birthdaypaper",
+   "title": "Birthday Paper",
+   "url": "https://mcp-birthdaypaper.michael-bertelsenmedia.workers.dev/mcp",
+   "description": "What happened on any date since 1946: headlines, number-one hit, birthday twins. Read-only.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 1,
+   "est_tokens": 360,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 129
+  },
+  {
+   "server": "com.businessnamedesk/name-check",
+   "title": "Business Name Desk",
+   "url": "https://businessnamedesk.com/mcp",
+   "description": "Check if a US business name is taken: state business registers, the .com and restricted words.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 362,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 319
+  },
+  {
+   "server": "com.clawhard/doorman",
+   "title": "Doorman",
+   "url": "https://doorman.clawhard.com/mcp",
+   "description": "Check which AI bots a website or a pasted robots.txt lets in, grouped by purpose.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 362,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 214
+  },
+  {
+   "server": "com.cymetica/tuatara-summarize",
+   "title": "Tuatara Summarize",
+   "url": "https://cymetica.com/mcp/v1/summarize",
+   "description": "Extractive document summarizer: returns the text's own sentences, so it cannot add facts.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 8,
+   "est_tokens": 368,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 5296
+  },
+  {
+   "server": "biz.nunchi/nunchi-try",
+   "title": "\ub208\uce58 \ub9db\ubcf4\uae30 (nunchi.biz)",
+   "url": "https://mcp.gmp.ai/nunchi/try",
+   "description": "Try nunchi without sign-up: compare your site and rival home pages once (no login).",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 373,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 652
+  },
+  {
+   "server": "ai.deepinquiry/verified-facts",
+   "title": "DeepInquiry Verified Facts",
+   "url": "https://www.deepinquiry.ai/mcp",
+   "description": "Search and read short factual claims with cited sources, a verification tier and a signature.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 5,
+   "est_tokens": 374,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 505
+  },
+  {
+   "server": "app.seoaeogeo/seo-aeo-geo",
+   "title": "SEO\u00b7AEO\u00b7GEO",
+   "url": "https://seoaeogeo.app/mcp",
+   "description": "Audit a page for Google and AI search (ChatGPT, Claude, Perplexity); get a fix pack to apply.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 378,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 354
+  },
+  {
+   "server": "app.sparkscribe/sparks-scribe",
+   "title": "Sparks Scribe",
+   "url": "https://crm.sparkscribe.app/crm/api/public-mcp",
+   "description": "Official first-party facts about Sparks Scribe: what it is, pricing, trial.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 4,
+   "params": 1,
+   "est_tokens": 378,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 1061
+  },
+  {
+   "server": "com.adcreator-ai.sitebuilder/site-preview",
+   "title": "AI Site Builder: website preview",
+   "url": "https://sitebuilder.adcreator-ai.com/mcp",
+   "description": "Builds a website preview for a small business from a one-sentence description and returns its link.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 3,
+   "est_tokens": 379,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0011,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 484
+  },
+  {
+   "server": "com.getproofsnap/proofsnap-verify",
+   "title": "ProofSnap Verify",
+   "url": "https://mcp.getproofsnap.com/verify/mcp",
+   "description": "Check by manifest SHA-256, without an account, whether the ProofSnap API issued an evidence package.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 1,
+   "est_tokens": 396,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 560
+  },
+  {
+   "server": "app.netlify.agent-rescue-desk/production-triage",
+   "title": "Agent Rescue Desk Production Triage",
+   "url": "https://agent-rescue-desk.netlify.app/mcp",
+   "description": "Read-only triage for n8n, MCP, webhook, and AI agent workflow production failures.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 1,
+   "est_tokens": 398,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 633
+  },
+  {
+   "server": "com.discordtimestampgen/discord-timestamp",
+   "title": "Discord Timestamp Generator",
+   "url": "https://discordtimestampgen.com/mcp",
+   "description": "Make Discord <t:unix:F> timestamp codes from any date and timezone; decode Discord snowflake IDs.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 7,
+   "est_tokens": 402,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 191
+  },
+  {
+   "server": "co.youraitools/webread",
+   "title": "WebRead",
+   "url": "https://api.youraitools.co/webread/mcp",
+   "description": "Turn any public web page into clean Markdown for LLMs; respects robots.txt. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 406,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 175
+  },
+  {
+   "server": "com.ctrlworx/ask-the-clock",
+   "title": "Ask the Clock (Ctrl Worx Watch List)",
+   "url": "https://ctrlworx.com/wp-json/ctrlworx/v1/ask-the-clock",
+   "description": "Live material weakness status and Clock figures for public companies, from their own SEC filings.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 1,
+   "est_tokens": 407,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 471
+  },
+  {
+   "server": "com.atalaya-ai/ai-crawler-check",
+   "title": "Atalaya AI crawler check",
+   "url": "https://atalaya-ai.com/mcp",
+   "description": "Which AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot) a website allows, and why.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 410,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 252
+  },
+  {
+   "server": "co.youraitools/signcheck",
+   "title": "SignCheck",
+   "url": "https://api.youraitools.co/signcheck/mcp",
+   "description": "Pre-sign safety check for agent wallets: tx, EIP-712, EIP-7702, x402. By Crypto Money Maker",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 6,
+   "est_tokens": 412,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 123
+  },
+  {
+   "server": "com.fotosize/fotosize",
+   "title": "fotosize",
+   "url": "https://fotosize.com/mcp",
+   "description": "Passport, visa and ID photo sizes, head size and background rules from official sources.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 416,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 402
+  },
+  {
+   "server": "com.jointhestudentlife/docs",
+   "title": "The Student Life docs",
+   "url": "https://jointhestudentlife.com/mcp/docs",
+   "description": "Search and read city guides, student blog guides, the FAQ, pricing and policies.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 5,
+   "est_tokens": 416,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0012,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 218
+  },
+  {
+   "server": "co.veedio.www/planner",
+   "title": "Veedio Short-Video Planner",
+   "url": "https://www.veedio.co/api/mcp/public",
+   "description": "Plan TikToks, Reels and Shorts: hook, timed beats, captions, CTA, plus the right Veedio tool page.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 420,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 252
+  },
+  {
+   "server": "ai.dibri/dibri",
+   "title": "Dibri",
+   "url": "https://dibri.ai/mcp",
+   "description": "Verified answers for AI agents: only from approved documents, with sources, or a refusal.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 424,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 674
+  },
+  {
+   "server": "ai.workonit/mcp",
+   "title": "workonit",
+   "url": "https://www.workonit.ai/mcp",
+   "description": "What workonit is: its sites, the apps and AI agents in its store. Read only, no sign-in.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 3,
+   "est_tokens": 425,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 1312
+  },
+  {
+   "server": "com.auto-units/sigil",
+   "title": "Sigil",
+   "url": "https://sigilbrandstudio.com/mcp",
+   "description": "Brand reviews from a public website and an optional product document.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 428,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 214
+  },
+  {
+   "server": "com.brainonbnb/health-factor",
+   "title": null,
+   "url": "https://agent.brainonbnb.com/health-factor/mcp",
+   "description": "Venus health factor of any BNB Chain account, free; liquidation stress paid, free holding 1M $BOBAI.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 433,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 276
+  },
+  {
+   "server": "com.ainovaq/mcp",
+   "title": "Ainovaq",
+   "url": "https://ainovaq.com/mcp",
+   "description": "Ainovaq AI venture studio: list services, get service details, search the blog, contact info.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 4,
+   "params": 3,
+   "est_tokens": 436,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0005,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0005
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 1418
+  },
+  {
+   "server": "com.erddocs/erd-diagram",
+   "title": "ErdDocs",
+   "url": "https://erddocs.com/mcp",
+   "description": "ER diagrams from SQL, Prisma or ORM models. One tool, no account, nothing stored.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 2,
+   "est_tokens": 440,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 141
+  },
+  {
+   "server": "com.aiskilldir/directory",
+   "title": "AI Skill Directory",
+   "url": "https://aiskilldir.com/mcp",
+   "description": "Search and fetch curated AI agent skills, prompts and MCP servers.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 5,
+   "est_tokens": 445,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 832
+  },
+  {
+   "server": "com.brickyourface/brick-mosaic",
+   "title": "BrickYourFace: photo to brick mosaic",
+   "url": "https://brickyourface.com/api/mcp",
+   "description": "Turn a photo into a LEGO-compatible brick mosaic kit: watermarked preview, price and buy link.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 5,
+   "est_tokens": 446,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 521
+  },
+  {
+   "server": "com.airaptr/raptr-domains",
+   "title": null,
+   "url": "https://api.airaptr.com/domains/mcp",
+   "description": "Check and price up to 20 domain names at once; agents can register them, paying per request.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 3,
+   "est_tokens": 448,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 228
+  },
+  {
+   "server": "com.autosecurelogin/aya-scam-check",
+   "title": "Aya scam check",
+   "url": "https://mcp.autosecurelogin.com/aya/mcp",
+   "description": "Screens a message or its links for scam patterns with Aya's offline rules, in English and Spanish.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 4,
+   "est_tokens": 449,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0013,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 257
+  },
+  {
+   "server": "com.buyvignettepass/vignettes",
+   "title": "Buy Vignette Pass \u2014 European motorway vignettes",
+   "url": "https://buyvignettepass.com/mcp",
+   "description": "Which motorway vignettes a car trip in Europe needs, with prices and toll caveats.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 5,
+   "est_tokens": 450,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 564
+  },
+  {
+   "server": "bot.persnickety/bridal",
+   "title": "Persnickety Try-On Index",
+   "url": "https://persnickety.bot/mcp",
+   "description": "Find source-checked US boutiques with plus-size bridal samples physically available to try on.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 456,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 334
+  },
+  {
+   "server": "com.bidcraftai/quotes",
+   "title": "BidCraft",
+   "url": "https://www.bidcraftai.com/mcp",
+   "description": "Get bids from local US contractors: scope a job, then BidCraft contacts contractors for you.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 6,
+   "est_tokens": 456,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 281
+  },
+  {
+   "server": "ai.howtocancel/the-fine-print",
+   "title": null,
+   "url": "https://api.howtocancel.ai/mcp",
+   "description": "Cancellation steps and return policies for 53 US companies, from official sources, checked daily.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 4,
+   "params": 1,
+   "est_tokens": 460,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 432
+  },
+  {
+   "server": "com.agencysearchtool/agencies",
+   "title": "Agency Search Tool",
+   "url": "https://agencysearchtool.com/mcp.php",
+   "description": "Find agencies worldwide by service and location, with editorial ratings and contact details.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 6,
+   "est_tokens": 462,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 668
+  },
+  {
+   "server": "com.ankusiwheels/wheel-fitment",
+   "title": "ANKUSI Wheel Fitment",
+   "url": "https://ankusiwheels.com/wp-json/ankusi/v1/mcp",
+   "description": "Bolt pattern, center bore, OE wheel size and offset for about 10,000 vehicles. Free, no API key.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 7,
+   "est_tokens": 464,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 474
+  },
+  {
+   "server": "com.flatheadtrades/directory",
+   "title": "Flathead Trades",
+   "url": "https://flatheadtrades.com/api/mcp",
+   "description": "Builders, tradespeople and home services in Montana's Flathead Valley, with phones and websites.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 3,
+   "params": 5,
+   "est_tokens": 464,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 219
+  },
+  {
+   "server": "com.brainonbnb/grid-trader",
+   "title": null,
+   "url": "https://agent.brainonbnb.com/grid-trader/mcp",
+   "description": "What a BSC pool costs to trade, free; grid levels and break-even spacing paid, free with 1M $BOBAI.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 2,
+   "est_tokens": 466,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 132
+  },
+  {
+   "server": "com.clawhard/runsheet",
+   "title": "Runsheet",
+   "url": "https://runsheet.clawhard.com/mcp",
+   "description": "Create a live, shareable day-of schedule for weddings, shoots, conferences and events.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 1,
+   "params": 5,
+   "est_tokens": 475,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 183
+  },
+  {
+   "server": "ai.lovora/lovora",
+   "title": "Lovora",
+   "url": "https://lovora.ai/mcp",
+   "description": "Official facts about Lovora (18+ AI companions): companions, prices, content rules, docs.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 4,
+   "params": 3,
+   "est_tokens": 476,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 1041
+  },
+  {
+   "server": "com.auto-units/autoprint",
+   "title": "AutoPrint",
+   "url": "https://autoprintstudio.com/mcp",
+   "description": "Print existing artwork on custom wall art, apparel, and gifts.",
+   "score": 100.0,
+   "grade": "A",
+   "tools": 2,
+   "params": 3,
+   "est_tokens": 478,
+   "usd_per_turn": {
+    "GPT-5.4": 0.0006,
+    "Claude Fable 5.1": 0.0014,
+    "Gemini 3.5 Pro": 0.0006
+   },
+   "doc_rate": 1.0,
+   "conformance": "error_object",
+   "latency_ms": 405
+  }
+ ]
+}

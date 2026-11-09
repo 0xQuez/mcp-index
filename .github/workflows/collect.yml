@@ -1,0 +1,52 @@
+name: collect
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # daily, 03:17 UTC
+  workflow_dispatch:
+    inputs:
+      pages:
+        description: "Registry pages to fetch (100 servers each). Empty = all."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probe registry
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.pages }}" ]; then
+            ARGS="--pages ${{ github.event.inputs.pages }}"
+          fi
+          python3 collector/run.py --workers 16 --out data/snapshots $ARGS
+
+      - name: Compress and prune
+        run: python3 collector/publish.py --dir data/snapshots --keep-days 90
+
+      - name: Commit snapshot
+        run: |
+          git config user.name  "mcp-index-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/snapshots
+          if git diff --cached --quiet; then
+            echo "no data change"
+          else
+            git commit -m "data: snapshot $(date -u +%Y-%m-%d)"
+            git push
+          fi
