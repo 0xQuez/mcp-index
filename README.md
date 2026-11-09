@@ -79,38 +79,44 @@ That is a narrow claim. It is also a claim nobody else can make with data today.
 
 ---
 
-## First probe results
+## Snapshot results
 
-Direct measurements against the live MCP registry. 262 entries, 169 remote endpoints reachable, 103 servers fully interrogated. Run on 2026-11-09.
+Full registry sweep, 2026-11-09. Every entry was probed. Nothing was sampled.
 
 | Metric | Result |
 |---|---|
-| Registry entries fetched | 6,100+ |
-| Entries with a remote URL | 5,731 |
-| Sampled for this probe | 262 |
-| Auth-gated (`401`/`403`) | 129 (49%) |
-| Dead or broken (DNS, 404, 400, timeout) | 30 (11%) |
-| Fully interrogated | 103 |
-| Total tools enumerated | 1,204 |
-| Median tools per server | 6 (p90 24, max 160) |
-| Parameters across all tools | 4,312 |
-| Parameters with a description | 2,740 (64%) |
-| Tools declaring risk annotations | 94% |
-| Tools with `outputSchema` (MCP 2025-06-18) | 317 (26%) |
-| **Context tax, median** | **2,031 tokens** |
-| **Context tax, p90** | **9,507 tokens** |
-| **Context tax, worst observed** | **125,392 tokens** |
-| Handshake latency | p50 489 ms, p95 888 ms |
-| Invalid tool call returned a JSON-RPC error | 53 of 103 |
-| Invalid tool call returned `result.isError` | 32 of 103 |
-| Invalid tool call returned a false success | **0 of 85 testable** |
-| Unknown method returned `-32601` | 68 of 82 |
+| Registry entries with a remote URL | 40,524 |
+| Interrogated (handshake and tool list) | 21,370 (52.7%) |
+| Auth-gated, not inspectable without a key | 11,821 (29.2%) |
+| Dead or unreachable (DNS, 404, TLS, timeout) | 5,420 (13.4%) |
+| Protocol error | 1,897 (4.7%) |
+| Tools enumerated | 390,285 |
+| Parameters | 1,836,914 |
+| Parameters with a description | 1,660,035 (90.4%) |
+| Tools declaring a risk annotation | 68.3% |
+| Tools with `outputSchema` | 17.4% |
+| **Context tax, median** | **2,995 tokens per turn** |
+| **Context tax, p90** | **36,340 tokens** |
+| **Context tax, worst observed** | **417,388 tokens** |
+| Score grades | A 8,415, B 4,052, C 1,912, D 2,434, F 4,557 |
 
-### What this corrected
+### How servers answer an invalid tool call
 
-An early probe reported that 37% of servers answer an invalid tool call with a success code. That was wrong. The probe had counted `401` responses and `result.isError: true` as failures. After fixing the classifier, **zero** servers returned an undetectable success.
+We send one `tools/call` for a tool that does not exist, then classify the answer.
 
-The real defects are different, and more useful: half the registry cannot be evaluated without credentials, documentation coverage is 64%, and the context tax ranges across four orders of magnitude.
+| Answer | Count | Share | Meaning |
+|---|---|---|---|
+| JSON-RPC error | 9,806 | 45.9% | Correct. The client sees a failure. |
+| `result.isError = true` | 5,989 | 28.0% | Detectable, not spec-exact. |
+| Error text inside `result.content` | 2,406 | 11.3% | Only detectable if the client parses prose. |
+| No error signal at all | 43 | 0.2% | The client sees a success. |
+| Auth required on the call | 2,608 | 12.2% | A security boundary, not a defect. |
+
+### Two corrections this project made to its own work
+
+**The 37% headline was false.** An early probe reported that 37% of servers answer an invalid call with a success code. The classifier had counted `401` responses and `result.isError` as failures. After the classifier was fixed, undetectable successes measured **43 of 21,370 (0.2%)**. The README kept the retraction on purpose.
+
+**The score was flat.** The first weights handed every server 50 free points from components that never varied. Median score was 94.4 and told nobody anything. Rule v1.2.0 weights only the components that separate servers, and splits text-only errors from silent ones.
 
 ## Architecture
 

@@ -14,6 +14,7 @@ import sys
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import probe  # noqa: E402
 import scoring  # noqa: E402
 
 NAME = re.compile(r"^(\d{4}-\d{2}-\d{2})\.jsonl$")
@@ -34,6 +35,7 @@ def rescore(path):
             except json.JSONDecodeError:
                 skipped += 1
                 continue
+            probe.refine_mode(rec)
             new = scoring.score(rec)
             if (rec.get("score") or {}).get("rule_version") != new.get("rule_version"):
                 changed += 1

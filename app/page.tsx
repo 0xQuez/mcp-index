@@ -67,6 +67,7 @@ export default function Page() {
 
   const maxHist = Math.max(...s.context_tax.histogram.map((h) => h.count));
   const silent = s.conformance_modes["silent_success"] ?? 0;
+  const textErr = s.conformance_modes["result_text_error"] ?? 0;
   const errObj = s.conformance_modes["error_object"] ?? 0;
   const isErr = s.conformance_modes["result_iserror"] ?? 0;
 
@@ -92,14 +93,16 @@ export default function Page() {
           <span>Snapshot {s.date}</span>
           <span>{fmt(total)} registry entries</span>
           <span>{fmt(reachable)} interrogated</span>
-          <span>Rule v1.1.0</span>
+          <span>Rule v1.2.0</span>
         </div>
       </div>
 
       <div className="coverage">
         <div className="coverage-head">
           <h2>Registry coverage</h2>
-          <span>{pct(reachable)} inspectable without credentials</span>
+          <span>
+            {pct(reachable)} of {fmt(total)} inspectable without credentials
+          </span>
         </div>
         <div className="bar" role="img" aria-label="Registry composition">
           <i style={{ width: pct(reachable), background: "var(--ink)" }} />
@@ -109,6 +112,7 @@ export default function Page() {
           <i style={{ width: pct(other), background: "var(--rule)" }} />
         </div>
         <div className="legend">
+          <span className="denom">Share of all {fmt(total)} registry entries</span>
           <span>
             <i style={{ background: "var(--ink)" }} />
             Interrogated {fmt(reachable)}
@@ -206,14 +210,14 @@ export default function Page() {
             <small>detectable by the agent</small>
           </div>
           <div className="stat">
-            <dt>False success</dt>
-            <dd>{fmt(silent)}</dd>
-            <small>the agent sees a success</small>
+            <dt>Text-only error</dt>
+            <dd>{fmt(textErr)}</dd>
+            <small>error string in content, no isError flag</small>
           </div>
           <div className="stat">
-            <dt>Coverage gap</dt>
-            <dd>{fmt(auth)}</dd>
-            <small>call blocked by auth, not scored</small>
+            <dt>False success</dt>
+            <dd>{fmt(silent)}</dd>
+            <small>no error signal at all</small>
           </div>
         </dl>
       </section>
@@ -229,7 +233,7 @@ export default function Page() {
 
       <footer>
         <span>
-          Code MIT, data CC BY 4.0. Scores recomputed under rule v1.1.0. Method in{" "}
+          Code MIT, data CC BY 4.0. Scores recomputed under rule v1.2.0. Method in{" "}
           <a href="https://github.com/0xQuez/mcp-index/blob/main/docs/SCORING.md">docs/SCORING.md</a>.
         </span>
         <span>

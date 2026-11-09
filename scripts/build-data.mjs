@@ -4,13 +4,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
+import zlib from "node:zlib";
 
 const dir = "data/snapshots";
 const files = fs.existsSync(dir)
   ? fs.readdirSync(dir).filter((f) => /^\d{4}-\d{2}-\d{2}\.jsonl(\.gz)?$/.test(f)).sort()
   : [];
-const jsonl = files.filter((f) => f.endsWith(".jsonl"));
-const chosen = jsonl.length ? jsonl[jsonl.length - 1] : null;
+const chosen = files.length ? files[files.length - 1] : null;
 
 if (!chosen) {
   console.log("build-data: no snapshot found, keeping existing public/data");
@@ -18,11 +18,12 @@ if (!chosen) {
 }
 
 const date = chosen.slice(0, 10);
+const full = path.join(dir, chosen);
+const stream = full.endsWith(".gz")
+  ? fs.createReadStream(full).pipe(zlib.createGunzip())
+  : fs.createReadStream(full);
 const rows = [];
-const rl = readline.createInterface({
-  input: fs.createReadStream(path.join(dir, chosen)),
-  crlfDelay: Infinity,
-});
+const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
 
 for await (const line of rl) {
   if (!line.trim()) continue;
@@ -51,14 +52,23 @@ for await (const line of rl) {
   });
 }
 
+// The table payload stays small: no descriptions. A full file with
+// descriptions ships separately for download and analysis.
+const slim = rows.map(({ d, ...rest }) => rest);
+const scored = slim.filter((r) => r.sc !== null);
+const unscored = slim
+  .filter((r) => r.sc === null)
+  .map((r) => ({ n: r.n, o: r.o, la: r.la }));
 fs.mkdirSync("public/data", { recursive: true });
-fs.writeFileSync("public/data/servers.json", JSON.stringify({ date, count: rows.length, servers: rows }));
+fs.writeFileSync("public/data/servers.json", JSON.stringify({ date, count: scored.length, servers: scored }));
+fs.writeFileSync("public/data/unscored.json", JSON.stringify({ date, count: unscored.length, servers: unscored }));
+fs.writeFileSync("public/data/servers-full.json", JSON.stringify({ date, count: rows.length, servers: rows }));
 
 const summaryPath = "data/dashboard.json";
 if (fs.existsSync(summaryPath)) {
   const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8"));
   fs.writeFileSync("public/data/summary.json", JSON.stringify({ ...summary, date: summary.date || date }));
-  console.log(`build-data: ${rows.length} servers, summary for ${summary.date || date}`);
+  console.log(`build-data: ${rows.length} servers from ${chosen}, summary for ${summary.date || date}`);
 } else {
-  console.log(`build-data: ${rows.length} servers, no summary yet`);
+  console.log(`build-data: ${rows.length} servers from ${chosen}, no summary yet`);
 }

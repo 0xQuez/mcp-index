@@ -177,6 +177,16 @@ a:hover {
   height: 100%;
 }
 
+.legend .denom {
+  color: var(--ink);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.legend .denom::after {
+  content: "";
+}
+
 .legend {
   display: flex;
   gap: 18px;

@@ -21,7 +21,7 @@ WEIGHTS = {
     "safety": 25,
     "schema": 5,
 }
-RULE_VERSION = "1.1.0"
+RULE_VERSION = "1.2.0"
 
 
 def probe_ok():
@@ -46,6 +46,8 @@ def subscores(rec):
             conf += 0.6
         elif mode == "result_iserror":
             conf += 0.3
+        elif mode == "result_text_error":
+            conf += 0.15
         if checks.get("unknown_method_errors"):
             conf += 0.4
 

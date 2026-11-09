@@ -7,6 +7,7 @@ endpoint, and return a record of what actually happened, with evidence.
 from __future__ import annotations
 
 import json
+import re
 import socket
 import time
 import urllib.error
@@ -17,6 +18,10 @@ REGISTRY = "https://registry.modelcontextprotocol.io/v0/servers"
 PROTOCOL_VERSION = "2025-06-18"
 USER_AGENT = "mcp-index/0.1 (+https://github.com/0xQuez/mcp-index)"
 MAX_BODY = 2_000_000
+KNOWN_TEXT_ERROR = re.compile(
+    r"(?i)\b(unknown tool|tool not found|invalid tool|no such tool|"
+    r"not found|error|invalid|unrecogni[sz]ed)\b"
+)
 
 
 class Outcome:
@@ -108,6 +113,22 @@ def rpc(url, payload, sid=None, timeout=20):
     body = _decode(raw, headers)
     new_sid = headers.get("Mcp-Session-Id") or sid
     return body, new_sid, {"http_status": status}
+
+
+def refine_mode(rec):
+    """Re-derive the unknown-tool mode from stored evidence.
+
+    Lets a rule change apply to existing snapshots without re-probing.
+    """
+    checks = rec.setdefault("checks", {})
+    if checks.get("unknown_tool_mode") != "silent_success":
+        return rec
+    body = str(((rec.get("evidence") or {}).get("unknown_tool") or {}).get("body") or "")
+    if KNOWN_TEXT_ERROR.search(body):
+        checks["unknown_tool_mode"] = "result_text_error"
+        checks["unknown_tool_errors"] = True
+        checks["unknown_tool_silent"] = False
+    return rec
 
 
 def _schema(tool):
@@ -320,7 +341,18 @@ def probe(url, timeout=20, use_preflight=True):
             mode = "error_object"
             code = err.get("code")
         elif isinstance(result, dict):
-            mode = "result_iserror" if result.get("isError") is True else "silent_success"
+            if result.get("isError") is True:
+                mode = "result_iserror"
+            else:
+                # Some servers signal the error as plain text inside
+                # result.content and leave isError unset. A client that
+                # checks the flag sees success. Classify separately.
+                text = " ".join(
+                    str(part.get("text") or "")
+                    for part in (result.get("content") or [])
+                    if isinstance(part, dict)
+                )[:600]
+                mode = "result_text_error" if KNOWN_TEXT_ERROR.search(text) else "silent_success"
         else:
             mode = "unparseable"
     status = (bad_meta or {}).get("http_status")

@@ -1,4 +1,4 @@
-# Scoring rules (v1.1.0)
+# Scoring rules (v1.2.0)
 
 The index answers one question per metric. No metric guesses. Every score
 is computed from raw probe output that ships in the same record.
@@ -40,18 +40,26 @@ possible answers, and they are not equal:
 | Mode | Score | Meaning |
 |---|---|---|
 | `error_object` | 15/15 | JSON-RPC error (`-32602`, `-32601`). Spec-compliant. |
-| `result_iserror` | 10/15 | HTTP 200 with `result.isError = true`. The agent can detect it. |
-| `silent_success` | 0/15 | HTTP 200 with no error flag. The agent sees success. |
+| `result_iserror` | 30% | HTTP 200 with `result.isError = true`. Structured clients see it. |
+| `result_text_error` | 15% | Error words inside `result.content`, flag unset. Only a prose-reading client sees it. |
+| `silent_success` | 0% | No error signal at all. The client sees success. |
 | `auth_on_call` | n/a | `401`/`403`. A security boundary, not a defect. |
 | `http_400` / `http_404` | n/a | Transport problem. Not scored. |
 
 When the answer is `auth_on_call` or another transport failure, the
 conformance component is marked n/a and its weight is removed.
 
-Note: a first version of this probe counted `401` and `result.isError`
-responses as failures and produced a false 37% "silent failure" rate.
-After the classifier was fixed, real silent successes measured **0 of 85**.
-The lesson is recorded here on purpose: classify before you publish.
+Note: this probe has twice corrected itself.
+
+1. The first version counted `401` and `result.isError` as failures and
+   produced a false 37% "silent failure" rate. After the fix, the full
+   sweep measured **43 of 21,370 (0.2%)** true silent successes.
+2. The second version counted `result_text_error` as silent. A manual
+   read of 400 evidence bodies showed the error string was present as
+   plain text. That is a real but weaker defect, so it now earns 15%.
+
+The lesson sits in the file on purpose: open 400 evidence records before
+you publish any prevalence number.
 
 ## The n/a rule
 

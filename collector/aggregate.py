@@ -14,7 +14,11 @@ import gzip
 import json
 import os
 import statistics
+import sys
 from collections import Counter
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import scoring  # noqa: E402
 
 # Reference prices, USD per million input tokens. Stated on the site next to
 # any dollar figure. Update deliberately, never silently.
@@ -116,6 +120,7 @@ def main():
 
     payload = {
         "date": args.date,
+        "rule_version": scoring.RULE_VERSION,
         "generated_at": records[0].get("checked_at") if records else None,
         "totals": {
             "servers": total,

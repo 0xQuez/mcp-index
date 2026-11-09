@@ -6,7 +6,7 @@ type Row = {
   n: string;
   t: string | null;
   u: string;
-  d: string;
+  d?: string;
   o: string;
   sc: number | null;
   g: string | null;
@@ -54,6 +54,24 @@ export default function Leaderboard() {
     };
   }, []);
 
+  // Unscored rows load only when the reader asks for them.
+  useEffect(() => {
+    if (mode !== "all" || !data || data.servers.length > 25000) return;
+    let alive = true;
+    fetch("/data/unscored.json")
+      .then((r) => r.json())
+      .then((d: Payload) => {
+        if (!alive) return;
+        setData((prev) =>
+          prev ? { ...prev, servers: [...prev.servers, ...d.servers] } : prev,
+        );
+      })
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [mode, data]);
+
   const rows = useMemo(() => {
     if (!data) return [];
     const needle = q.trim().toLowerCase();
@@ -63,7 +81,7 @@ export default function Leaderboard() {
       return (
         r.n.toLowerCase().includes(needle) ||
         (r.t || "").toLowerCase().includes(needle) ||
-        r.d.toLowerCase().includes(needle)
+        (r.d || "").toLowerCase().includes(needle)
       );
     });
     out = out.slice().sort((a, b) => {
