@@ -20,7 +20,7 @@ concurrency:
 jobs:
   snapshot:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
 
@@ -28,22 +28,58 @@ jobs:
         with:
           python-version: "3.12"
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
       - name: Probe registry
         run: |
           ARGS=""
           if [ -n "${{ github.event.inputs.pages }}" ]; then
             ARGS="--pages ${{ github.event.inputs.pages }}"
           fi
-          python3 collector/run.py --workers 16 --out data/snapshots $ARGS
+          # 64 workers measured at ~40 probes/second. 16 workers measured
+          # at 3/second, which runs past the job timeout.
+          python3 collector/run.py --workers 64 --timeout 10 --out data/snapshots $ARGS
 
       - name: Compress and prune
         run: python3 collector/publish.py --dir data/snapshots --keep-days 90
 
-      - name: Commit snapshot
+      - name: Aggregate for the dashboard
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          python3 collector/aggregate.py --date "$DATE" --out data/dashboard.json
+
+      - name: Gate on data quality
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          d = json.load(open("data/dashboard.json"))
+          total = d["totals"]["registry_entries"]
+          verified = d["totals"]["verified"]
+          print(f"registry={total} verified={verified} excluded={d['totals']['excluded']}")
+          if total < 30000:
+              sys.exit(f"FAIL: only {total} registry entries, expected ~40500")
+          if verified < 10000:
+              sys.exit(f"FAIL: only {verified} verified servers, expected ~18000")
+          if not d.get("servers"):
+              sys.exit("FAIL: no servers in the published set")
+          if d["totals"]["excluded"] + verified != total:
+              sys.exit("FAIL: verified + excluded does not equal the registry total")
+          print("data gate passed")
+          PY
+
+      - name: Build the site
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+
+      - name: Commit snapshot and aggregate
         run: |
           git config user.name  "mcp-index-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/snapshots
+          git add data/snapshots data/dashboard.json
           if git diff --cached --quiet; then
             echo "no data change"
           else
