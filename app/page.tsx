@@ -4,7 +4,12 @@ import Leaderboard from "./leaderboard";
 
 type Summary = {
   date: string;
-  totals: Record<string, number>;
+  totals: Record<string, number> & {
+    registry_entries: number;
+    verified: number;
+    excluded: number;
+    excluded_breakdown: Record<string, number>;
+  };
   outcomes: Record<string, number>;
   context_tax: {
     median: number;
@@ -51,18 +56,13 @@ export default function Page() {
     );
   }
 
-  const total = s.totals.servers;
-  const reachable = s.totals.reachable;
-  const auth = s.outcomes.auth_required ?? 0;
-  const dead =
-    (s.outcomes.dns_error ?? 0) +
-    (s.outcomes.not_found ?? 0) +
-    (s.outcomes.transport_error ?? 0) +
-    (s.outcomes.tls_error ?? 0) +
-    (s.outcomes.timeout ?? 0) +
-    (s.outcomes.invalid_body ?? 0);
-  const proto = s.outcomes.protocol_error ?? 0;
-  const other = Math.max(0, total - reachable - auth - dead - proto);
+  const total = s.totals.registry_entries;
+  const verified = s.totals.verified;
+  const excluded = s.totals.excluded;
+  const excl = s.totals.excluded_breakdown || {};
+  const auth = excl.auth_required ?? 0;
+  const dead = excl.dead_or_unreachable ?? 0;
+  const proto = excl.protocol_error ?? 0;
   const pct = (n: number) => `${((n / total) * 100).toFixed(1)}%`;
 
   const maxHist = Math.max(...s.context_tax.histogram.map((h) => h.count));
@@ -86,40 +86,37 @@ export default function Page() {
       <div className="lede">
         <h1>What every MCP server costs your agent</h1>
         <p>
-          A daily probe of the public MCP registry. It records reachability, tool documentation, and
-          the token cost of each server&#39;s tool catalog. All raw data is published.
+          A daily probe of the public MCP registry. It measures tool documentation and the token
+          cost of each server&#39;s tool catalog. Only servers verified end to end are listed.
         </p>
         <div className="stamp">
           <span>Snapshot {s.date}</span>
-          <span>{fmt(total)} registry entries</span>
-          <span>{fmt(reachable)} interrogated</span>
+          <span>{fmt(verified)} verified servers</span>
+          <span>{fmt(excluded)} entries excluded</span>
           <span>Rule v1.2.0</span>
         </div>
       </div>
 
       <div className="coverage">
         <div className="coverage-head">
-          <h2>Registry coverage</h2>
-          <span>
-            {pct(reachable)} of {fmt(total)} inspectable without credentials
-          </span>
+          <h2>What is in this index</h2>
+          <span>{pct(verified)} of {fmt(total)} registry entries verified</span>
         </div>
-        <div className="bar" role="img" aria-label="Registry composition">
-          <i style={{ width: pct(reachable), background: "var(--ink)" }} />
+        <div className="bar" role="img" aria-label="Verified share of the registry">
+          <i style={{ width: pct(verified), background: "var(--ink)" }} />
           <i style={{ width: pct(auth), background: "var(--rule-strong)" }} />
           <i style={{ width: pct(dead), background: "var(--warn)" }} />
           <i style={{ width: pct(proto), background: "var(--bad)" }} />
-          <i style={{ width: pct(other), background: "var(--rule)" }} />
         </div>
         <div className="legend">
           <span className="denom">Share of all {fmt(total)} registry entries</span>
           <span>
             <i style={{ background: "var(--ink)" }} />
-            Interrogated {fmt(reachable)}
+            Verified {fmt(verified)}
           </span>
           <span>
             <i style={{ background: "var(--rule-strong)" }} />
-            Auth required {fmt(auth)}
+            Auth gated, excluded {fmt(auth)}
           </span>
           <span>
             <i style={{ background: "var(--warn)" }} />
@@ -130,6 +127,11 @@ export default function Page() {
             Protocol error {fmt(proto)}
           </span>
         </div>
+        <p className="coverage-note">
+          Version 1 lists only servers we could verify: reachable, tool list readable, and the
+          invalid-call test executed. Auth-gated servers need a key, so we cannot verify them. They
+          are counted here and left out of every number below.
+        </p>
       </div>
 
       <dl className="stats">

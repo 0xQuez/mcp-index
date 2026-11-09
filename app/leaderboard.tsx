@@ -37,7 +37,6 @@ export default function Leaderboard() {
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<SortKey>("tk");
   const [dir, setDir] = useState<1 | -1>(-1);
-  const [mode, setMode] = useState<"scored" | "all">("scored");
   const [limit, setLimit] = useState(100);
 
   useEffect(() => {
@@ -54,29 +53,11 @@ export default function Leaderboard() {
     };
   }, []);
 
-  // Unscored rows load only when the reader asks for them.
-  useEffect(() => {
-    if (mode !== "all" || !data || data.servers.length > 25000) return;
-    let alive = true;
-    fetch("/data/unscored.json")
-      .then((r) => r.json())
-      .then((d: Payload) => {
-        if (!alive) return;
-        setData((prev) =>
-          prev ? { ...prev, servers: [...prev.servers, ...d.servers] } : prev,
-        );
-      })
-      .catch(() => undefined);
-    return () => {
-      alive = false;
-    };
-  }, [mode, data]);
-
   const rows = useMemo(() => {
     if (!data) return [];
     const needle = q.trim().toLowerCase();
     let out = data.servers.filter((r) => {
-      if (mode === "scored" && r.sc === null) return false;
+      if (r.sc === null) return false;
       if (!needle) return true;
       return (
         r.n.toLowerCase().includes(needle) ||
@@ -90,7 +71,7 @@ export default function Leaderboard() {
       return (av - bv) * dir;
     });
     return out;
-  }, [data, q, sort, dir, mode]);
+  }, [data, q, sort, dir]);
 
   const shown = rows.slice(0, limit);
 
@@ -128,10 +109,6 @@ export default function Leaderboard() {
           placeholder="Filter by name or description"
           aria-label="Filter servers"
         />
-        <select value={mode} onChange={(e) => setMode(e.target.value as "scored" | "all")} aria-label="Rows to show">
-          <option value="scored">Scored only</option>
-          <option value="all">All probed</option>
-        </select>
         <span className="count">
           {shown.length.toLocaleString("en-US")} of {rows.length.toLocaleString("en-US")}
         </span>

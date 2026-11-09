@@ -72,6 +72,16 @@ In these cases the component is marked `null`, its weight is removed, and the
 remaining weights are renormalised. The record lists `weights_applied` and
 `weights_skipped` so anyone can redo the arithmetic.
 
+## Scope: verified servers only
+
+v1 publishes only entries where all three statements are true: the endpoint
+answered, `tools/list` returned tools, and the invalid-call test produced a
+classifiable answer.
+
+Entries that need a key are excluded. They are not scored as zero, and they
+are not listed. The aggregate reports `excluded_breakdown` so the reader can
+see how many entries sit outside the published set and why.
+
 ## No score without evidence
 
 A server only receives a score when the probe reached `tools/list`. Servers

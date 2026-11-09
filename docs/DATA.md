@@ -1,7 +1,12 @@
 # Data format
 
-One snapshot per day: `data/snapshots/YYYY-MM-DD.jsonl`, one JSON object per
-server. A companion `YYYY-MM-DD.summary.json` holds run totals.
+One snapshot per day: `data/snapshots/YYYY-MM-DD.jsonl.gz`, one JSON object
+per probed entry. A companion `YYYY-MM-DD.summary.json` holds run totals.
+
+**The raw snapshot contains every probed entry, including auth-gated and dead
+ones. The published dataset, the dashboard, and the JSON API contain only
+verified servers.** `data/dashboard.json` carries the `servers` array that
+ships, plus `totals.excluded_breakdown` for the entries left out.
 
 ## Fields
 

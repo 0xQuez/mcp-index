@@ -75,19 +75,39 @@ def main():
 
     path = find_snapshot(args.dir, args.date)
     records = list(load(path))
-    scored = [r for r in records if (r.get("score") or {}).get("score") is not None]
-    reachable = [r for r in records if r.get("outcome") == "ok"]
-    outcomes = Counter(r.get("outcome") for r in records)
-
     total = len(records)
-    tokens = [r["stats"]["est_tokens"] for r in reachable if "est_tokens" in r.get("stats", {})]
-    params = sum(r["stats"].get("params", 0) for r in reachable)
-    documented = sum(r["stats"].get("params_documented", 0) for r in reachable)
-    tools = sum(r["stats"].get("tools", 0) for r in reachable)
-    risk = sum(r["stats"].get("tools_declaring_risk", 0) for r in reachable)
-    output_schema = sum(r["stats"].get("tools_with_output_schema", 0) for r in reachable)
 
-    modes = Counter((r.get("checks") or {}).get("unknown_tool_mode") for r in reachable)
+    # v1 publishes only entries we verified end to end: reached, tool list
+    # read, and the invalid-call test executed. Auth-gated entries cannot be
+    # verified, so they are excluded from the published set. Their count is
+    # reported, not their rows.
+    def verified(rec):
+        return (rec.get("outcome") == "ok"
+                and bool((rec.get("checks") or {}).get("call_testable")))
+
+    kept = [r for r in records if verified(r)]
+    dropped = Counter(
+        "auth_required" if r.get("outcome") == "auth_required"
+        else "auth_on_call" if (r.get("checks") or {}).get("unknown_tool_mode") == "auth_on_call"
+        else "dead_or_unreachable" if r.get("outcome") in
+             ("dns_error", "not_found", "transport_error", "tls_error", "timeout", "invalid_body")
+        else "protocol_error" if r.get("outcome") == "protocol_error"
+        else "call_not_testable"
+        for r in records if not verified(r)
+    )
+
+    reachable = kept
+    scored = [r for r in kept if (r.get("score") or {}).get("score") is not None]
+    outcomes = Counter(r.get("outcome") for r in kept)
+
+    tokens = [r["stats"]["est_tokens"] for r in kept if "est_tokens" in r.get("stats", {})]
+    params = sum(r["stats"].get("params", 0) for r in kept)
+    documented = sum(r["stats"].get("params_documented", 0) for r in kept)
+    tools = sum(r["stats"].get("tools", 0) for r in kept)
+    risk = sum(r["stats"].get("tools_declaring_risk", 0) for r in kept)
+    output_schema = sum(r["stats"].get("tools_with_output_schema", 0) for r in kept)
+
+    modes = Counter((r.get("checks") or {}).get("unknown_tool_mode") for r in kept)
 
     def money(tok):
         return {p["model"]: round(tok / 1_000_000 * p["input_per_m"], 4) for p in PRICES}
@@ -111,6 +131,7 @@ def main():
             "grade": r["score"]["grade"],
             "tools": s.get("tools", 0),
             "params": s.get("params", 0),
+            "params_documented": s.get("params_documented", 0),
             "est_tokens": s.get("est_tokens"),
             "usd_per_turn": money(s.get("est_tokens") or 0),
             "doc_rate": round(s.get("params_documented", 0) / s["params"], 3) if s.get("params") else None,
@@ -123,10 +144,13 @@ def main():
         "rule_version": scoring.RULE_VERSION,
         "generated_at": records[0].get("checked_at") if records else None,
         "totals": {
-            "servers": total,
-            "reachable": len(reachable),
+            "registry_entries": total,
+            "verified": len(kept),
+            "excluded": sum(dropped.values()),
+            "excluded_breakdown": dict(dropped),
+            "servers": len(kept),
+            "reachable": len(kept),
             "scored": len(scored),
-            "inspectability": round(len(reachable) / total, 4) if total else None,
             "tools": tools,
             "params": params,
             "params_documented": documented,
@@ -148,12 +172,14 @@ def main():
         "grades": dict(Counter(r["score"]["grade"] for r in scored)),
         "score_median": statistics.median([r["score"]["score"] for r in scored]) if scored else None,
         "leaderboard": [row(r) for r in leaderboard],
+        "servers": [dict(row(r), description=(r.get("description") or "")[:200]) for r in kept],
     }
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, indent=1)
-    print(json.dumps({k: v for k, v in payload.items() if k != "leaderboard"}, indent=2)[:2000])
+    print(json.dumps({k: v for k, v in payload.items()
+                      if k not in ("leaderboard", "servers")}, indent=2)[:2000])
     print(f"wrote {args.out} ({os.path.getsize(args.out)} bytes)")
 
 

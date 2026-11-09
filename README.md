@@ -14,11 +14,11 @@ Every day, this project probes every remote server listed in the public MCP regi
 
 Today an engineer connects a server to an agent, and the agent fails in a strange way. The engineer loses an hour.
 
-A first probe of 262 registry entries found that **half of them cannot be inspected at all without credentials**, and that a single server's tool catalog can cost **125,000 tokens of context on every turn**. Those two facts decide whether a server is usable in an agent. Neither is published anywhere today.
+Across 18,244 verified servers, the tool catalog costs **2,758 tokens per turn at the median** and **417,388 tokens in the worst case**. That number is paid again on every request, and nobody publishes it. Version 1 lists only servers we could verify. Auth-gated entries are counted and excluded.
 
 ### 2. It prices the context tax of every server
 
-An agent sends the full `tools/list` payload to the model on every turn. That payload is a recurring cost, and it varies by four orders of magnitude across servers. Measured so far: median 2,031 tokens, 90th percentile 9,507, worst case 125,392 for one server with 128 tools.
+An agent sends the full `tools/list` payload to the model on every turn. That payload is a recurring cost, and it varies by four orders of magnitude. Measured on the verified set: median 2,758 tokens, p90 36,138, worst case 417,388 for one server with 128 tools.
 
 Nobody publishes this number. It is the reason some agents are slow and expensive for no visible reason.
 
@@ -69,7 +69,7 @@ Context tax is reported, not scored. A large tool catalog can be legitimate. Cha
 This scope is deliberately narrow. Overselling would weaken the project.
 
 - It does **not** judge the quality of a tool's output. A server can pass conformance and still return bad data.
-- It does **not** test authenticated servers deeply. In the first probe, 33 of 94 servers required a key. This project measures the door, not the room.
+- It does **not** test authenticated servers at all. In v1, servers that need a key to list tools or to call one are excluded from the dataset and counted separately. That is why the population is 18,244, not 40,524.
 - It does **not** replace evals. It measures the tool layer, not your prompt or your model.
 - It is **not** a security audit. It reads public schemas only.
 
@@ -79,44 +79,54 @@ That is a narrow claim. It is also a claim nobody else can make with data today.
 
 ---
 
+## Scope (v1)
+
+Version 1 publishes **only servers that were verified end to end**: the endpoint answered, the tool list was read, and the invalid-call test executed. Everything else is excluded from the dataset and from every number on the site.
+
+| Bucket | Entries |
+|---|---|
+| Registry entries with a remote URL | 40,524 |
+| **Verified and published** | **18,244** |
+| Excluded: needs a key to list tools | 11,821 |
+| Excluded: needs a key to call a tool | 2,608 |
+| Excluded: dead or unreachable | 5,420 |
+| Excluded: protocol error | 1,897 |
+| Excluded: call test not possible | 534 |
+
+A server behind auth is not a bad server. It is an unknown server. Scoring it would be dishonest, so v1 does not score it and does not list it. The excluded counts stay on the page so the reader knows the denominator.
+
 ## Snapshot results
 
-Full registry sweep, 2026-11-09. Every entry was probed. Nothing was sampled.
+Verified set only, snapshot 2026-11-09.
 
 | Metric | Result |
 |---|---|
-| Registry entries with a remote URL | 40,524 |
-| Interrogated (handshake and tool list) | 21,370 (52.7%) |
-| Auth-gated, not inspectable without a key | 11,821 (29.2%) |
-| Dead or unreachable (DNS, 404, TLS, timeout) | 5,420 (13.4%) |
-| Protocol error | 1,897 (4.7%) |
-| Tools enumerated | 390,285 |
-| Parameters | 1,836,914 |
-| Parameters with a description | 1,660,035 (90.4%) |
-| Tools declaring a risk annotation | 68.3% |
-| Tools with `outputSchema` | 17.4% |
-| **Context tax, median** | **2,995 tokens per turn** |
-| **Context tax, p90** | **36,340 tokens** |
+| Verified servers | 18,244 |
+| Tools enumerated | 318,029 |
+| Parameters | 1,556,984 |
+| Parameters with a description | 1,428,406 (91.7%) |
+| Tools declaring a risk annotation | 63.1% |
+| Tools with `outputSchema` | 17.2% |
+| **Context tax, median** | **2,758 tokens per turn** |
+| **Context tax, p90** | **36,138 tokens** |
+| **Context tax, p99** | **45,714 tokens** |
 | **Context tax, worst observed** | **417,388 tokens** |
-| Score grades | A 8,415, B 4,052, C 1,912, D 2,434, F 4,557 |
+| Score grades | A 6,353, B 3,826, C 1,800, D 2,045, F 4,220 |
 
-### How servers answer an invalid tool call
-
-We send one `tools/call` for a tool that does not exist, then classify the answer.
+### How verified servers answer an invalid tool call
 
 | Answer | Count | Share | Meaning |
 |---|---|---|---|
-| JSON-RPC error | 9,806 | 45.9% | Correct. The client sees a failure. |
-| `result.isError = true` | 5,989 | 28.0% | Detectable, not spec-exact. |
-| Error text inside `result.content` | 2,406 | 11.3% | Only detectable if the client parses prose. |
+| JSON-RPC error | 9,806 | 53.7% | Correct. The client sees a failure. |
+| `result.isError = true` | 5,989 | 32.8% | Detectable, not spec-exact. |
+| Error text inside `result.content` | 2,406 | 13.2% | Only detectable if the client parses prose. |
 | No error signal at all | 43 | 0.2% | The client sees a success. |
-| Auth required on the call | 2,608 | 12.2% | A security boundary, not a defect. |
 
 ### Two corrections this project made to its own work
 
-**The 37% headline was false.** An early probe reported that 37% of servers answer an invalid call with a success code. The classifier had counted `401` responses and `result.isError` as failures. After the classifier was fixed, undetectable successes measured **43 of 21,370 (0.2%)**. The README kept the retraction on purpose.
+**The 37% headline was false.** An early probe reported that 37% of servers answer an invalid call with a success code. The classifier had counted `401` responses and `result.isError` as failures. After the fix, undetectable successes measured **43 of 18,244 (0.2%)**.
 
-**The score was flat.** The first weights handed every server 50 free points from components that never varied. Median score was 94.4 and told nobody anything. Rule v1.2.0 weights only the components that separate servers, and splits text-only errors from silent ones.
+**The score was flat.** The first weights handed every server 50 free points from components that never varied. Median score was 94.4 and told nobody anything. Rule v1.2.0 weights only the components that separate servers.
 
 ## Architecture
 
