@@ -60,9 +60,9 @@ export default function Page() {
   const verified = s.totals.verified;
   const excluded = s.totals.excluded;
   const excl = s.totals.excluded_breakdown || {};
-  const auth = excl.auth_required ?? 0;
+  const auth = (excl.auth_required ?? 0) + (excl.auth_on_call ?? 0);
   const dead = excl.dead_or_unreachable ?? 0;
-  const proto = excl.protocol_error ?? 0;
+  const other = (excl.protocol_error ?? 0) + (excl.call_not_testable ?? 0);
   const pct = (n: number) => `${((n / total) * 100).toFixed(1)}%`;
 
   const maxHist = Math.max(...s.context_tax.histogram.map((h) => h.count));
@@ -106,7 +106,7 @@ export default function Page() {
           <i style={{ width: pct(verified), background: "var(--ink)" }} />
           <i style={{ width: pct(auth), background: "var(--rule-strong)" }} />
           <i style={{ width: pct(dead), background: "var(--warn)" }} />
-          <i style={{ width: pct(proto), background: "var(--bad)" }} />
+          <i style={{ width: pct(other), background: "var(--bad)" }} />
         </div>
         <div className="legend">
           <span className="denom">Share of all {fmt(total)} registry entries</span>
@@ -124,13 +124,14 @@ export default function Page() {
           </span>
           <span>
             <i style={{ background: "var(--bad)" }} />
-            Protocol error {fmt(proto)}
+            Other {fmt(other)}
           </span>
         </div>
         <p className="coverage-note">
           Version 1 lists only servers we could verify: reachable, tool list readable, and the
           invalid-call test executed. Auth-gated servers need a key, so we cannot verify them. They
-          are counted here and left out of every number below.
+          are counted here and left out of every number below. Other covers
+          protocol errors and servers whose call test could not run.
         </p>
       </div>
 
