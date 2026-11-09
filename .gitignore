@@ -10,3 +10,4 @@ out/
 public/data/
 .vercel/
 data/snapshots/*.jsonl.tmp
+.vercel
