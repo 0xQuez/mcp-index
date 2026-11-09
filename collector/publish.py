@@ -17,15 +17,17 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import probe  # noqa: E402
 import scoring  # noqa: E402
 
-NAME = re.compile(r"^(\d{4}-\d{2}-\d{2})\.jsonl$")
+NAME = re.compile(r"^(\d{4}-\d{2}-\d{2})\.jsonl(\.gz)?$")
 
 
 def rescore(path):
     """Recompute scores with the current rule version so data and site agree."""
+    gz = path.endswith(".gz")
+    opener = gzip.open if gz else open
     records = []
     changed = 0
     skipped = 0
-    with open(path, "r", encoding="utf-8") as fh:
+    with opener(path, "rt", encoding="utf-8") as fh:
         for line in fh:
             line = line.strip()
             if not line:
@@ -41,7 +43,8 @@ def rescore(path):
                 changed += 1
             rec["score"] = new
             records.append(rec)
-    with open(path, "w", encoding="utf-8") as fh:
+    writer = gzip.open if gz else open
+    with writer(path, "wt", encoding="utf-8") as fh:
         for rec in records:
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
     return changed, len(records)
@@ -54,10 +57,16 @@ def main():
     ap.add_argument("--keep-days", type=int, default=90)
     args = ap.parse_args()
 
+    for name in sorted(os.listdir(args.dir)):
+        if not NAME.match(name):
+            continue
+        changed, total = rescore(os.path.join(args.dir, name))
+        print(f"rescored {name}: {changed} rule changes, {total} records")
+
     compressed = []
     for name in sorted(os.listdir(args.dir)):
         match = NAME.match(name)
-        if not match:
+        if not match or name.endswith(".gz"):
             continue
         raw_path = os.path.join(args.dir, name)
         gz_path = raw_path + ".gz"

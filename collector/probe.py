@@ -18,6 +18,8 @@ REGISTRY = "https://registry.modelcontextprotocol.io/v0/servers"
 PROTOCOL_VERSION = "2025-06-18"
 USER_AGENT = "mcp-index/0.1 (+https://github.com/0xQuez/mcp-index)"
 MAX_BODY = 2_000_000
+ERROR_MODES = ("error_object", "result_iserror", "result_text_error")
+TESTABLE_MODES = ERROR_MODES + ("silent_success",)
 KNOWN_TEXT_ERROR = re.compile(
     r"(?i)\b(unknown tool|tool not found|invalid tool|no such tool|"
     r"not found|error|invalid|unrecogni[sz]ed)\b"
@@ -121,13 +123,17 @@ def refine_mode(rec):
     Lets a rule change apply to existing snapshots without re-probing.
     """
     checks = rec.setdefault("checks", {})
-    if checks.get("unknown_tool_mode") != "silent_success":
-        return rec
-    body = str(((rec.get("evidence") or {}).get("unknown_tool") or {}).get("body") or "")
-    if KNOWN_TEXT_ERROR.search(body):
-        checks["unknown_tool_mode"] = "result_text_error"
-        checks["unknown_tool_errors"] = True
-        checks["unknown_tool_silent"] = False
+    mode = checks.get("unknown_tool_mode")
+    if mode == "silent_success":
+        body = str(((rec.get("evidence") or {}).get("unknown_tool") or {}).get("body") or "")
+        if KNOWN_TEXT_ERROR.search(body):
+            mode = "result_text_error"
+    if mode:
+        checks["unknown_tool_mode"] = mode
+        checks["unknown_tool_errors"] = mode in ERROR_MODES
+        checks["unknown_tool_silent"] = mode == "silent_success"
+        if mode in TESTABLE_MODES:
+            checks["call_testable"] = True
     return rec
 
 
@@ -362,10 +368,10 @@ def probe(url, timeout=20, use_preflight=True):
         mode = f"http_{status}"
 
     rec["checks"]["unknown_tool_mode"] = mode
-    rec["checks"]["unknown_tool_errors"] = mode in ("error_object", "result_iserror")
+    rec["checks"]["unknown_tool_errors"] = mode in ERROR_MODES
     rec["checks"]["unknown_tool_code"] = code
     rec["checks"]["unknown_tool_silent"] = mode == "silent_success"
-    rec["checks"]["call_testable"] = mode in ("error_object", "result_iserror", "silent_success")
+    rec["checks"]["call_testable"] = mode in TESTABLE_MODES
     rec["evidence"]["unknown_tool"] = {"body": str(bad)[:300], "meta": bad_meta}
 
     # Conformance check 2: an unknown method must produce -32601.
