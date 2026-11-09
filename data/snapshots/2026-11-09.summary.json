@@ -1,24 +1,24 @@
 {
   "date": "2026-11-09",
-  "generated_at": "2026-11-09T16:17:32Z",
-  "elapsed_s": 1612,
-  "targets": 40524,
+  "generated_at": "2026-11-09T17:15:18Z",
+  "elapsed_s": 1027,
+  "targets": 40570,
   "outcomes": {
-    "dns_error": 831,
-    "auth_required": 11821,
-    "transport_error": 2194,
-    "ok": 21370,
-    "protocol_error": 1897,
-    "invalid_body": 314,
-    "tls_error": 485,
+    "auth_required": 11883,
+    "dns_error": 840,
+    "transport_error": 2198,
+    "protocol_error": 1818,
+    "ok": 21540,
+    "invalid_body": 313,
     "probe_crash": 16,
-    "not_found": 1070,
-    "timeout": 526
+    "tls_error": 327,
+    "not_found": 1071,
+    "timeout": 564
   },
-  "scored": 21370,
-  "score_median": 89.2,
-  "score_mean": 78.3,
+  "scored": 21540,
+  "score_median": 89.4,
+  "score_mean": 80.6,
   "score_p90": 100.0,
   "file": "2026-11-09.jsonl",
-  "rule_version": "1.1.0"
+  "rule_version": "1.2.0"
 }
