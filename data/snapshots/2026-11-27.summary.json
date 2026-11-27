@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-27",
+  "generated_at": "2026-11-27T13:04:10Z",
+  "elapsed_s": 1278,
+  "targets": 51487,
+  "outcomes": {
+    "dns_error": 988,
+    "auth_required": 15828,
+    "ok": 27607,
+    "protocol_error": 2218,
+    "not_found": 1342,
+    "transport_error": 2464,
+    "invalid_body": 349,
+    "tls_error": 364,
+    "probe_crash": 24,
+    "timeout": 303
+  },
+  "scored": 27607,
+  "score_median": 89.5,
+  "score_mean": 79.3,
+  "score_p90": 100.0,
+  "file": "2026-11-27.jsonl",
+  "rule_version": "1.2.0"
+}
